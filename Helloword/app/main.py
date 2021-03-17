@@ -44,15 +44,12 @@ def check_login_creds(email, password):
         )
         for actuser in activeuser:
             actuser = dict(actuser)
-            # Converted the user ObjectId to str! so this can be stored into a session(how login works)
+            # Mengonversi ObjectId pengguna menjadi str! jadi ini bisa disimpan ke dalam sesi (cara kerja login)
             actuser['_id'] = str(actuser['_id'])    
             return actuser
 
 
 app = FastAPI()
-
-
-
 
 # root endpoint
 @app.get("/")
@@ -79,8 +76,6 @@ def signup(email, username: str, password: str):
     elif user_exists == False:
         connection.db.users.insert_one(data)
         return {"message":"User Created","email": data['email'], "name": data['name'], "pass": data['password']}
-
-
 
 # Login endpoint
 @app.get("/login/{email}/{password}")
