@@ -4,7 +4,7 @@ from fastapi import FastAPI
 import connection
 from bson import ObjectId
 from schematics.models import Model
-from schematics.types import StringType, EmailType
+from schematics.types import StringType, EmailType, NumberType
 import dns
 
 
@@ -12,10 +12,19 @@ class User(Model):
     user_id = ObjectId()
     email = EmailType(required=True)
     name = StringType(required=True)
-    password = StringType(required=True)
+    password = StringType(required=True)\
+
+class MasterPulsa(Model):
+    user_id = ObjectId()
+    kode_provider = StringType(required=True)
+    harga_pokok = NumberType(required =True)
+    harga_jual = NumberType(required =True)
+    saldo = NumberType(required = True)\
+
 
 # Sebuah contoh dari pengguna kelas
 newuser = User()
+newpulsa = MasterPulsa()
 
 # funtion untuk membuat dan menetapkan nilai ke contoh kelas yang dibuat Pengguna
 def create_user(email, username, password):
@@ -24,6 +33,13 @@ def create_user(email, username, password):
     newuser.name = username
     newuser.password = password
     return dict(newuser)
+
+def create_pulsa(kode_provider, harga_pokok, harga_jual, saldo):
+    newpulsa.user_id = ObjectId()
+    newpulsa.harga_pokok = harga_pokok
+    newpulsa.harga_jual = harga_jual
+    newpulsa.saldo = saldo
+    return dict(newpulsa)
 
 # Metode untuk memeriksa apakah parameter email ada dari database pengguna sebelum validasi detail
 def email_exists(email):
@@ -70,7 +86,7 @@ def signup(email, username: str, password: str):
         {'email': data['email']}
         ).count() > 0:
         user_exists = True
-        print("USer Exists")
+        print("User Exists")
         return {"message":"User Exists"}
     # jika email belum ada, maka insert usert baru
     elif user_exists == False:
@@ -95,3 +111,9 @@ def login(email, password):
     else:
         status = log_user_in(logger)
         return {"Info":status}
+
+@app.post("/saldo_awal/{kode_provider}/{harga_pokok}/{harga_jual}/{saldo}")
+def saldo_awal(kode_provider :str,harga_pokok: int, harga_jual:int, saldo:int):
+    pulsa = create_pulsa(kode_provider, harga_pokok, harga_jual, saldo)
+    connection.db.master_pulsa.insert_one(pulsa)
+    return{"message" : "isi saldo awal master pulsa berhasil", "kode_provider": pulsa['kode_provider'], "harga_pokok":['harga_pokok'],"harga_jual":['harga_jual'], "saldo": pulsa['saldo']}
