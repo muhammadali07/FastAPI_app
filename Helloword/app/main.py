@@ -153,13 +153,12 @@ def master_pulsa(kode_provider,nama_provider:str,harga_pokok: int, harga_jual:in
 
 @app.get("/cek_saldo_pulsa")
 async def cek_saldo_pulsa():
-    data = []
     saldo = connection.db.master_pulsa.find()
     if saldo is None:
         print("Tidak ada data")
     else:
         print("cek saldo berhasil")
-        return await {"nama_provider": data['nama_provider'],"saldo": data['saldo']}
+        return {saldo}
 
 def ResponseModel(data, message):
     return {
