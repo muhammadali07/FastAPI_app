@@ -9,5 +9,5 @@ app = FastAPI()
 mongodb = connect('mongodb', host='mongodb://localhost/pulsa')
 client = TestClient(app)
 
-app.include_router(users.router, prefix="/users", tags=["User Docs"], )
+app.include_router(users.router, prefix="/users", tags=["User Docs !"], )
 app.include_router(users.router, prefix="/todo", tags=["Todo Docs!"], )

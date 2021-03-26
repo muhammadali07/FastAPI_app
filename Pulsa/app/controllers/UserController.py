@@ -23,12 +23,12 @@ class UserController:
             name = body['name']
 
             if name == "":
-                raise Exception("name could not be empety")
+                raise Exception("Data Tidak ada")
 
             user = Users(name=name)
             user.save()
             transformer = UserTransformer.singleTransform(user)
-            return response.ok(transformer, "Berhasil Mebuat user")
+            return response.ok(transformer, "Berhasil Membuat user")
         except Exception as e:
             return response.badRequest('', f'{e}')
 

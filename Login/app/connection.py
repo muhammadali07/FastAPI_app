@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-import settings
+# import settings
 
-client = MongoClient(settings.mongodb_uri, settings.port)
-db = client['usersdata']
+connection = MongoClient('127.0.0.1', 27017)
+db = connection.pulsa
