@@ -1,6 +1,7 @@
 from schematics.models import Model
 from bson import ObjectId
 from schematics.types import StringType, EmailType, NumberType, TimestampType
+import connection
 
 class User(Model):
     user_id = ObjectId()
