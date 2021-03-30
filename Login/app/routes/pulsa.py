@@ -27,14 +27,7 @@ async def cek_all_provider():
     col = connection.db["master_pulsa"]
     for x in col.find():
         print(x)
-        return print(x)
-
-    # cur = connection.db.master_pulsa.find()
-    # for dt in cur:
-    #     print(dt)
-    #     return{"kode provider": dt['kode_provider'], "nama provider": dt['nama_provider'], "harga pokok": dt['harga_pokok'], "harga jual": dt['harga_jual'], "saldo": dt['saldo']}
-        
-
+    
 @router.get("/cek_provider/{id}", tags=["Pulsa"])
 async def cek_provider(id:str):
     cur = connection.db.master_pulsa.find({"_id": ObjectId(id) })
@@ -52,7 +45,7 @@ async def hapus_transaksi_data(id: str):
     col.delete_one(mq)
     return {"message":f"ID kode provider {id} berhasil di hapus"}
 
-@router.put("/update_data_master_provider/{kode_provider}/{nama_provider}", tags=['Pulsa'])
+@router.put("/update_data_master_provider/{kode_provider}/{nama_provider}", tags=["Pulsa"])
 async def update(kode_provider, nama_provider:str):
     provider_exists = False
 
