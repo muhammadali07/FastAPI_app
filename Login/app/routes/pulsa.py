@@ -24,9 +24,11 @@ def master_pulsa(kode_provider, nama_provider: str, harga_pokok: int, harga_jual
 
 @router.get("/cek_all_provider", tags=["Pulsa"])
 async def cek_all_provider():
-    col = connection.db["master_pulsa"]
-    for x in col.find():
+    col = connection.db.master_pulsa
+    for x in col.find({}):
         print(x)
+        # return{"kode provider": x['kode_provider'], "nama provider": x['nama_provider'], "harga pokok": x['harga_pokok'], "harga jual": x['harga_jual'], "saldo": x['saldo']}
+
     
 @router.get("/cek_provider/{id}", tags=["Pulsa"])
 async def cek_provider(id:str):

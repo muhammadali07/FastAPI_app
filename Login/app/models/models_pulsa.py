@@ -52,10 +52,9 @@ def email_exists(email):
         return user_exist
 
 
-def provider_exists(kode_provider):
+def provider_exists(kode_provider, nama_provider):
     provider_exists = True
-    if connection.db.master_pulsa.find(
-        {'kode_provider': kode_provider}
+    if connection.db.master_pulsa.find({"$or":[{'kode_provider': kode_provider}, {'nama_provider':nama_provider}]}
     ).count() == 0:
         provider_exists = False
         return provider_exists
