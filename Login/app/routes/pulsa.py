@@ -25,10 +25,9 @@ def master_pulsa(kode_provider, nama_provider: str, harga_pokok: int, harga_jual
 @router.get("/cek_all_provider", tags=["Pulsa"])
 async def cek_all_provider():
     col = connection.db.master_pulsa
+    # return list(col.find({}))
     for x in col.find({}):
         print(x)
-        # return{"kode provider": x['kode_provider'], "nama provider": x['nama_provider'], "harga pokok": x['harga_pokok'], "harga jual": x['harga_jual'], "saldo": x['saldo']}
-
     
 @router.get("/cek_provider/{id}", tags=["Pulsa"])
 async def cek_provider(id:str):
@@ -48,9 +47,7 @@ async def hapus_transaksi_data(id: str):
     return {"message":f"ID kode provider {id} berhasil di hapus"}
 
 @router.put("/update_data_master_provider/{kode_provider}/{nama_provider}", tags=["Pulsa"])
-async def update(kode_provider, nama_provider:str):
-    provider_exists = False
-
+async def update_data_master_provider(kode_provider, nama_provider:str):
     if connection.db.master_pulsa.find_one({'kode_provider' : kode_provider}):
         col = connection.db["master_pulsa"]
         lastquey = {'nama_provider' : nama_provider}
@@ -58,9 +55,9 @@ async def update(kode_provider, nama_provider:str):
         col.update_one(lastquey, newquery)
         for x in col.find():
             print(x)
-            return {"message": f"nama provider dengan {id} berhasil di ubah"}
+            return {"message": f"nama provider dengan {kode_provider} berhasil di ubah"}
     elif provider_exists == False:
-        return update
+        return update_data_master_provider
 
     # if connection.db.master_pulsa.find_one({"_id": ObjectId(id)}).count() == 0:
     #     col = connection.db["master_pulsa"]
