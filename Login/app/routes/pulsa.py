@@ -48,12 +48,20 @@ async def hapus_transaksi_data(id: str):
 
 @router.put("/update_data_master_provider/{id}/{nama_provider}", tags=["Pulsa"])
 async def update_data_master_provider(id, nama_provider:str):
-    cur = connection.db.master_pulsa.find({"_id" : ObjectId(id)})
     try:
-        if len(cur) > 0 :
-            col = connection.db["master_pulsa"]
-            lastquery = {"nama_provider" : nama_provider}
-            newquery = {"$set" : {"nama_provider" : nama_provider}}
-            col.update_one(lastquery, newquery)
-            for dt in col.find():
-                print(dt)
+        if connection.db.master_pulsa.find_one({"_id" : ObjectId(id)}):
+            raise Exception
+            db = connection.db["pulsa"]
+            col = db["master_pulsa"]
+            last_nama_provider = {"nama_provider" : nama_provider}
+            new_nama_provider = {"$set" : {"nama_provider" : new_nama_provider}}
+            col.update_one(last_nama_provider, new_nama_provider)
+            for x in db.find():
+                print(x)
+                return {"message": "nama provider dengan {id} berhasil diubah"}
+        else:
+            return {"{id} tidak di temukan"}
+    except Exception:
+        return update_data_master_provider
+
+
