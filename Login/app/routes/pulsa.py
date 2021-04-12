@@ -46,27 +46,14 @@ async def hapus_transaksi_data(id: str):
     col.delete_one(mq)
     return {"message":f"ID kode provider {id} berhasil di hapus"}
 
-@router.put("/update_data_master_provider/{kode_provider}/{nama_provider}", tags=["Pulsa"])
-async def update_data_master_provider(kode_provider, nama_provider:str):
-    if connection.db.master_pulsa.find_one({'kode_provider' : kode_provider}):
-        col = connection.db["master_pulsa"]
-        lastquey = {'nama_provider' : nama_provider}
-        newquery = {"$set" : {'nama_provider' : nama_provider}}
-        col.update_one(lastquey, newquery)
-        for x in col.find():
-            print(x)
-            return {"message": f"nama provider dengan {kode_provider} berhasil di ubah"}
-    elif provider_exists == False:
-        return update_data_master_provider
-
-    # if connection.db.master_pulsa.find_one({"_id": ObjectId(id)}).count() == 0:
-    #     col = connection.db["master_pulsa"]
-    #     lastquey = {'nama_provider' : nama_provider}
-    #     newquery = {"$set" : {'nama_provider' : nama_provider}}
-    #     col.update_one(lastquey, newquery)
-    #     for x in col.find():
-    #         print(x)
-    #         return {"message": f"nama provider dengan {id} berhasil di ubah"}
-    # else:
-    #     return {"message" : f"nama provider dengan {id} tidak terdaftar"}
-
+@router.put("/update_data_master_provider/{id}/{nama_provider}", tags=["Pulsa"])
+async def update_data_master_provider(id, nama_provider:str):
+    cur = connection.db.master_pulsa.find({"_id" : ObjectId(id)})
+    try:
+        if len(cur) > 0 :
+            col = connection.db["master_pulsa"]
+            lastquery = {"nama_provider" : nama_provider}
+            newquery = {"$set" : {"nama_provider" : nama_provider}}
+            col.update_one(lastquery, newquery)
+            for dt in col.find():
+                print(dt)
