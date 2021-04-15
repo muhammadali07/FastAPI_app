@@ -29,8 +29,8 @@ async def cek_all_provider():
     for x in col.find({}):
         print(x)
     
-@router.get("/cek_provider/{id}", tags=["Pulsa"])
-async def cek_provider(id:str):
+@router.get("/cek_provider_id/{id}", tags=["Pulsa"])
+async def cek_provider_id(id:str):
     cur = connection.db.master_pulsa.find({"_id": ObjectId(id) })
     try:
         for dt in cur:
@@ -46,22 +46,17 @@ async def hapus_transaksi_data(id: str):
     col.delete_one(mq)
     return {"message":f"ID kode provider {id} berhasil di hapus"}
 
-@router.put("/update_data_master_provider/{id}/{nama_provider}", tags=["Pulsa"])
-async def update_data_master_provider(id, nama_provider:str):
+@router.put("/update_data_master_provider_id/{id}/{nama_provider}", tags=["Pulsa"])
+async def update_data_master_provider_id(id:str, nama_provider:str):
     try:
-        if connection.db.master_pulsa.find_one({"_id" : ObjectId(id)}):
-            raise Exception
-            db = connection.db["pulsa"]
-            col = db["master_pulsa"]
-            last_nama_provider = {"nama_provider" : nama_provider}
-            new_nama_provider = {"$set" : {"nama_provider" : new_nama_provider}}
-            col.update_one(last_nama_provider, new_nama_provider)
-            for x in db.find():
-                print(x)
-                return {"message": "nama provider dengan {id} berhasil diubah"}
+        if connection.db.master_pulsa.find_one({"nama_provider":nama_provider}):
+            return {"message" : f"nama provider tersebut sudah tersedia dengan kode berbeda"}
+        elif connection.db.master_pulsa.find_one({"_id" : ObjectId(id)}):
+            db = connection.db.master_pulsa.update_one({"_id":ObjectId(id)}, {"$set":{"nama_provider":nama_provider}})
+            return {"message": f"nama provider dengan {id} berhasil diubah"}
         else:
-            return {"{id} tidak di temukan"}
+            return {f"{id} tidak di temukan"}
     except Exception:
-        return update_data_master_provider
+        return update_data_master_provider_id
 
 
