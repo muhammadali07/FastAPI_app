@@ -40,12 +40,6 @@ def create_master_pulsa(kode_provider,nama_provider, harga_pokok, harga_jual, sa
     newpulsa.saldo = saldo
     return dict(newpulsa)
 
-def create_transaction(nama_provider,nominal):
-    tranpulsa.user_id = ObjectId()
-    tranpulsa.nama_provider = nama_provider
-    tranpulsa.qty_pulsa = qty_pulsa
-    return dict(tranpulsa)
-
 # Metode untuk memeriksa apakah parameter email ada dari database pengguna sebelum validasi detail
 def email_exists(email):
     user_exist = True

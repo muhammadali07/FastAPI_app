@@ -16,3 +16,15 @@ def jual_pulsa(kode_provider:str, qty_pulsa:int):
             return {"message":f"Kode Provider {kode_provider} tidak tersedia"}
     except Exception:
         return jual_pulsa
+
+@router.delete("/delete_transaction_pulsa/{id}", tags=["Transaksi"])
+async def delete_transaction_pulsa(id:str):
+    try:
+        if connection.db.transaksi_pulsa.find_one({"_id":ObjectId(id)}):
+            connection.db.transaksi_pulsa.delete_one({"_id":ObjectId(id)})
+            return {"message":f"Transaksi dengan id {id} berhasil dihapus"}
+        else:
+            return {"message":f"Transaksi dengan id {id} tidak terdaftar"}    
+    except Exception:
+        return delete_transaction_pulsa
+        
