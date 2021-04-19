@@ -46,16 +46,16 @@ async def hapus_transaksi_data(id: str):
     col.delete_one(mq)
     return {"message":f"ID kode provider {id} berhasil di hapus"}
 
-@router.put("/update_data_master_provider_id/{id}/{nama_provider}", tags=["Pulsa"])
-async def update_data_master_provider_id(id:str, nama_provider:str):
+@router.put("/update_data_master_provider_id/{id}/{nama_provider}/{harga_pokok}/{harga_jual}/{saldo}", tags=["Pulsa"])
+async def update_data_master_provider_id(id:str, nama_provider:str,harga_pokok:int,harga_jual:int, saldo:int):
     try:
         if connection.db.master_pulsa.find_one({"_id":ObjectId(id)}):
             if connection.db.master_pulsa.find_one({"nama_provider":nama_provider}):
                 return {"message" : f"nama provider tersebut sudah tersedia dengan kode berbeda"}
             else :
                 connection.db.master_pulsa.find_one({"_id" : ObjectId(id)})
-                db = connection.db.master_pulsa.update_one({"_id":ObjectId(id)}, {"$set":{"nama_provider":nama_provider}})
-                return {"message": f"nama provider dengan {id} berhasil diubah"}
+                db = connection.db.master_pulsa.update_one({"_id":ObjectId(id)}, {"$set":{"nama_provider":nama_provider, "harga_pokok":harga_pokok, "harga_jual":harga_jual, "saldo":saldo}})
+                return {"message": f"Data provider dengan {id} berhasil diubah"}
         else:
             return {f"{id} tidak ditemukan"}
     except Exception:
