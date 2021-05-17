@@ -8,7 +8,7 @@ router = APIRouter()
 def jual_pulsa(kode_provider:str, qty_pulsa:int):
     try:
         if connection.db.master_pulsa.find_one({"kode_provider": kode_provider}):
-            nama_provider = connection.db.master_pulsa.find_one({"kode_provider":kode_provider})
+            nama_provider = connection.db.master_pulsa.find_one({'kode_provider':kode_provider},{'nama_provider':1})
             print(nama_provider)
             connection.db.transaksi_pulsa.insert_one({"kode_provider":kode_provider, "nama_provider":nama_provider, "qty_pulsa":qty_pulsa})
             return {"message":f"transaksi pulsa provider {kode_provider} berhasil"}
