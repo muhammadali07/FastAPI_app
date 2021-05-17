@@ -16,4 +16,9 @@
 - Github Pages - [Muh Ali Bakhtiar](https://muhammadali07.github.io/)
 - Email : muhalibakhtiar@gmail.com
 
-https://wakatime.com/badge/github/muhammadali07/FastAPI_app.svg
+### Clone dan Running project:
+1. First you must clone or download this project.
+2. creating virtual environment and activated
+3. install package for needed = pip install -r requirements.txt
+4. for running this app, you can use : uvicorn main:app --reload --port 5000 --log-level=debug
+  
