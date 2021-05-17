@@ -15,3 +15,5 @@
 ### 📫 Contact Me
 - Github Pages - [Muh Ali Bakhtiar](https://muhammadali07.github.io/)
 - Email : muhalibakhtiar@gmail.com
+
+https://wakatime.com/badge/github/muhammadali07/FastAPI_app.svg
