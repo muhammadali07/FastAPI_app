@@ -1,5 +1,7 @@
 from fastapi import APIRouter
+from fastapi.responses import JSONResponse
 from models.models_pulsa import *
+from bson.json_util import dumps, loads
 import connection
 
 router = APIRouter()
@@ -25,10 +27,14 @@ def master_pulsa(kode_provider, nama_provider: str, harga_pokok: int, harga_jual
 @router.get("/cek_all_provider", tags=["Pulsa"])
 async def cek_all_provider():
     col = connection.db.master_pulsa
-    # return list(col.find({}))
+    output = []
     for x in col.find({}):
-        print(x)
-    
+        output.append({"kode provider": x['kode_provider'], "nama provider": x['nama_provider'], "harga pokok": x['harga_pokok'], "harga jual": x['harga_jual'], "saldo": x['saldo']})
+        json_data = dumps(output, indent = 2)
+        with open('data.json', 'w') as file:
+            file.write(json_data)
+    return JSONResponse({'result' : output})
+      
 @router.get("/cek_provider_id/{id}", tags=["Pulsa"])
 async def cek_provider_id(id:str):
     cur = connection.db.master_pulsa.find({"_id": ObjectId(id) })

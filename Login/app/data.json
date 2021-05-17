@@ -1,0 +1,44 @@
+[
+  {
+    "kode provider": "A182",
+    "nama provider": "TELKOMSEL",
+    "harga pokok": 6500,
+    "harga jual": 7000,
+    "saldo": 100000
+  },
+  {
+    "kode provider": "A183",
+    "nama provider": "INDOSAT",
+    "harga pokok": 6500,
+    "harga jual": 7000,
+    "saldo": 110000
+  },
+  {
+    "kode provider": "A184",
+    "nama provider": "XL - AXIATA",
+    "harga pokok": 6500,
+    "harga jual": 7000,
+    "saldo": 120000
+  },
+  {
+    "kode provider": "A185",
+    "nama provider": "AXIS",
+    "harga pokok": 10000,
+    "harga jual": 10500,
+    "saldo": 70000
+  },
+  {
+    "kode provider": "A186",
+    "nama provider": "3 Indonesia",
+    "harga pokok": 7000,
+    "harga jual": 7500,
+    "saldo": 10000
+  },
+  {
+    "kode provider": "A187",
+    "nama provider": "TELKOM BY-U",
+    "harga pokok": 6500,
+    "harga jual": 7000,
+    "saldo": 100000
+  }
+]
