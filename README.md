@@ -19,6 +19,6 @@
 ### Clone dan Running project:
 1. First you must clone or download this project.
 2. creating virtual environment and activated
-3. install package for needed = pip install -r requirements.txt
+3. install package of needed = pip install -r requirements.txt
 4. for running this app, you can use : uvicorn main:app --reload --port 5000 --log-level=debug
   
