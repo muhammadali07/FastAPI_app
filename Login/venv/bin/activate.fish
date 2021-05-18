@@ -29,7 +29,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/Users/hackpy/Documents/GitHub/FastAPI_app/Login/venv"
+set -gx VIRTUAL_ENV "/Users/hackpy/Documents/HackPy/GitHub/FastAPI_app/Login/venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH
