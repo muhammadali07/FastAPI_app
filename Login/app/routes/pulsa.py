@@ -17,8 +17,8 @@ def master_pulsa(kode_provider, nama_provider: str, harga_pokok: int, harga_jual
         {'kode_provider': pulsa['kode_provider']}
     ).count() > 0:
         provider_exists == True
-        print("Kode Provider Sudah Ada")
-        return {"message": "Kode Provider Sudah Ada"}
+        print("Provider sudah terdaftar")
+        return {"message": "Provider sudah terdaftar"}
     elif provider_exists == False:
         connection.db.master_pulsa.insert_one(pulsa)
         return{"message": "isi saldo awal master pulsa berhasil", "kode_provider": pulsa['kode_provider'], "nama_provider": pulsa['nama_provider'], "harga_pokok": pulsa['harga_pokok'], "harga_jual": pulsa['harga_jual'], "saldo": pulsa['saldo']}
